@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Unity.Entities;
+using Unity.Mathematics;
 
-public class MovementAuthoring : MonoBehaviour
+public class MovementAuthoring : UnityEngine.MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public class MovementBaker : Baker<MovementAuthoring>
     {
-        
+        public override void Bake(MovementAuthoring authoring)
+        {
+            //AddComponent<Movment>();
+        }
     }
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+struct Movement : IComponentData
+{
+    //public float3 Position;
 }
