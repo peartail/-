@@ -6,7 +6,7 @@ public class [ScriptName]Authoring : UnityEngine.MonoBehaviour
     {
         public override void Bake([ScriptName]Authoring authoring)
         {
-            //AddComponent<[ScriptName]>();
+			//AddComponent(new [ScriptName]ComponentData { });
         }
     }
 }
