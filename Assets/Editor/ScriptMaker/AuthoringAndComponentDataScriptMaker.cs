@@ -85,7 +85,7 @@ namespace ScriptMaker
                 EditorGUIUtility.IconContent("cs Script Icon").image as Texture2D;
 
             var endNameEditAction =
-                ScriptableObject.CreateInstance<AuthoringAndComponentDataScriptMaker>();
+                ScriptableObject.CreateInstance<AuthoringScriptMaker>();
 
             ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0,
                 endNameEditAction, "New Authoring.cs", csIcon, path);
@@ -130,7 +130,7 @@ namespace ScriptMaker
                 EditorGUIUtility.IconContent("cs Script Icon").image as Texture2D;
 
             var endNameEditAction =
-                ScriptableObject.CreateInstance<AuthoringAndComponentDataScriptMaker>();
+                ScriptableObject.CreateInstance<ComponentDataScriptMaker>();
 
             ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0,
                 endNameEditAction, "New ComponentData.cs", csIcon, path);
@@ -176,7 +176,7 @@ namespace ScriptMaker
                 EditorGUIUtility.IconContent("cs Script Icon").image as Texture2D;
 
             var endNameEditAction =
-                ScriptableObject.CreateInstance<AuthoringAndComponentDataScriptMaker>();
+                ScriptableObject.CreateInstance<AspectScriptMaker>();
 
             ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0,
                 endNameEditAction, "New Aspect.cs", csIcon, path);
@@ -195,7 +195,7 @@ namespace ScriptMaker
             text = text.Replace("[ScriptName]", className);
             var encoding = new UTF8Encoding(true, false);
 
-            pathName = Path.Combine(Path.GetDirectoryName(pathName), $"{className}Authoring.cs");
+            pathName = Path.Combine(Path.GetDirectoryName(pathName), $"{className}Aspect.cs");
             File.WriteAllText(pathName, text, encoding);
 
             AssetDatabase.ImportAsset(pathName);
@@ -223,7 +223,7 @@ namespace ScriptMaker
                 EditorGUIUtility.IconContent("cs Script Icon").image as Texture2D;
 
             var endNameEditAction =
-                ScriptableObject.CreateInstance<AuthoringAndComponentDataScriptMaker>();
+                ScriptableObject.CreateInstance<SystemScriptMaker>();
 
             ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0,
                 endNameEditAction, "New System.cs", csIcon, path);
@@ -268,7 +268,7 @@ namespace ScriptMaker
                 EditorGUIUtility.IconContent("cs Script Icon").image as Texture2D;
 
             var endNameEditAction =
-                ScriptableObject.CreateInstance<AuthoringAndComponentDataScriptMaker>();
+                ScriptableObject.CreateInstance<SystemAndJobScriptMaker>();
 
             ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0,
                 endNameEditAction, "New System.cs", csIcon, path);
@@ -315,7 +315,7 @@ namespace ScriptMaker
                 EditorGUIUtility.IconContent("cs Script Icon").image as Texture2D;
 
             var endNameEditAction =
-                ScriptableObject.CreateInstance<AuthoringAndComponentDataScriptMaker>();
+                ScriptableObject.CreateInstance<JobScriptMaker>();
 
             ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0,
                 endNameEditAction, "New Job.cs", csIcon, path);
@@ -334,7 +334,7 @@ namespace ScriptMaker
             text = text.Replace("[ScriptName]", className);
             var encoding = new UTF8Encoding(true, false);
 
-            pathName = Path.Combine(Path.GetDirectoryName(pathName), $"{className}System.cs");
+            pathName = Path.Combine(Path.GetDirectoryName(pathName), $"{className}Job.cs");
             File.WriteAllText(pathName, text, encoding);
 
             AssetDatabase.ImportAsset(pathName);
