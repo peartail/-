@@ -152,10 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5311cbe53075836469e8d9c40fad0093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitCount: 10
+  unitCount: 0
   unitPrefab: {fileID: 471565706909524055, guid: 028f36d6f5405c8478623a370e7f5f56,
     type: 3}
-  targetCount: 10
+  targetCount: 0
   targetPrefab: {fileID: 471565706909524055, guid: 4e0499fb412fe154c9b002d629df8c94,
     type: 3}
 --- !u!4 &198426928
