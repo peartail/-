@@ -34,7 +34,7 @@ struct MouseClickComponentData : IComponentData
 
 public partial class MouseClickSystem : SystemBase
 {
-
+    public static readonly float _MaxDistance = 100f;
     struct Pick : IJob
     {
         [ReadOnly] public CollisionWorld collisionWorld;
@@ -67,7 +67,20 @@ public partial class MouseClickSystem : SystemBase
 
             var world = SystemAPI.GetSingleton<PhysicsWorldSingleton>().PhysicsWorld;
 
-            //Dependency = new 
+            Dependency = new Pick
+            {
+                collisionWorld = world.CollisionWorld,
+                rayInput = new RaycastInput
+                {
+                    Start = ray.origin,
+                    End = ray.origin + ray.direction * _MaxDistance,
+                    Filter = CollisionFilter.Default,
+                },
+                
+            }.Schedule(Dependency);
+
+
+
 
         }
     }
