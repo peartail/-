@@ -15,7 +15,8 @@ public class UnitSpawner : MonoBehaviour, Action.IMainActions
 
         var setting = SystemAPI.GetSingleton<SettingComponentData>();
 
-        //var ecbSingleton = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>();
+        var ecbSingleton = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>();
+        
         //var ecb = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged);
 
         //var vehicles = CollectionHelper.CreateNativeArray<Entity>(setting.unitCount, Allocator.Temp);

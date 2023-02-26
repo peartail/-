@@ -5,13 +5,16 @@ using Unity.Mathematics;
 using Unity.Collections;
 using UnityEngine.UIElements;
 
+
+
 [BurstCompile]
 public partial struct MovementSystem : ISystem
 {
 	[BurstCompile]
 	public void OnCreate(ref SystemState state)
 	{
-		//state.RequireForUpdate<MovementComponentData>();
+		state.RequireForUpdate<MovementComponentData>();
+		
 	}
 
 	[BurstCompile]
@@ -23,12 +26,12 @@ public partial struct MovementSystem : ISystem
 	public void OnUpdate(ref SystemState state)
     {
 
-        var random = Random.CreateFromIndex(1234);
-        var job = new MovementJob { 
-			dir = random.NextFloat2(),
-			deltaTime = SystemAPI.Time.DeltaTime,
-        };
-        job.ScheduleParallel();
+   //     var random = Random.CreateFromIndex(1234);
+   //     var job = new MovementJob { 
+			//dir = random.NextFloat2(),
+			//deltaTime = SystemAPI.Time.DeltaTime,
+   //     };
+   //     job.ScheduleParallel();
     }
 }
 

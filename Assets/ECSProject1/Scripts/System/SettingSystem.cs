@@ -49,8 +49,6 @@ public partial struct SettingSystem : ISystem
         var vehicles = CollectionHelper.CreateNativeArray<Entity>(setting.unitCount, Allocator.Temp);
         ecb.Instantiate(setting.unitEntity, vehicles);
 
-
-
         state.Enabled = false;
 
     }
