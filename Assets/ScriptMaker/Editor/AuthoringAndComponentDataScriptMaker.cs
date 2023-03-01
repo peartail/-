@@ -17,6 +17,7 @@ namespace ScriptMaker
         public static readonly string SystemDataPath = "SystemAndTemplate.txt";
         public static readonly string SystemAndJobmDataPath = "SystemAndJobTemplate.txt";
         public static readonly string JobDataPath = "JobTemplate.txt";
+        public static readonly string PackTemplate = "PackTemplate.txt";
         public static readonly string TemplatePath = "ScriptMaker/CustomScriptTemplates";
 
 
@@ -335,6 +336,40 @@ namespace ScriptMaker
             var encoding = new UTF8Encoding(true, false);
 
             pathName = Path.Combine(Path.GetDirectoryName(pathName), $"{className}Job.cs");
+            File.WriteAllText(pathName, text, encoding);
+
+            AssetDatabase.ImportAsset(pathName);
+            var asset = AssetDatabase.LoadAssetAtPath<MonoScript>(pathName);
+            ProjectWindowUtil.ShowCreatedAsset(asset);
+        }
+    }
+
+
+
+    public class PackScriptMaker : EndNameEditAction
+    {
+
+        [MenuItem("Assets/ECS/Create/Pack", priority = 6)]
+        public static void CreateUI()
+        {
+            var path = Path.Combine(Application.dataPath, PathStrings.TemplatePath, PathStrings.PackTemplate);
+            Texture2D csIcon = EditorGUIUtility.IconContent("cs Script Icon").image as Texture2D;
+            var endNameEditAction =CreateInstance<PackScriptMaker>();
+            ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0,
+                endNameEditAction, "New Authoring.cs", csIcon, path);
+        }
+
+        public override void Action(int instanceId, string pathName, string resourceFile)
+        {
+            var text = File.ReadAllText(resourceFile);
+
+            var className = Path.GetFileNameWithoutExtension(pathName);
+
+            className = className.Replace(" ", "");
+            text = text.Replace("[ScriptName]", className);
+            var encoding = new UTF8Encoding(true, false);
+
+            pathName = Path.Combine(Path.GetDirectoryName(pathName), $"{className}Authoring.cs");
             File.WriteAllText(pathName, text, encoding);
 
             AssetDatabase.ImportAsset(pathName);

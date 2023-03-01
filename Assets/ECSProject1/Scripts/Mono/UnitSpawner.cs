@@ -1,28 +1,32 @@
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Transforms;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class UnitSpawner : MonoBehaviour, Action.IMainActions
 {
     Action action;
-    bool isClicked = false;
     Vector2 position= Vector2.zero;
 
+    [SerializeField] Camera cam;
+    Plane groundPlane = new Plane(Vector3.up, 0);
+    bool isClicked = false;
     public void OnClick_1(InputAction.CallbackContext context)
     {
         isClicked = true;
 
-        var setting = SystemAPI.GetSingleton<SettingComponentData>();
+        var query = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(typeof(SettingComponentData));
 
-        var ecbSingleton = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>();
-        
-        //var ecb = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged);
-
-        //var vehicles = CollectionHelper.CreateNativeArray<Entity>(setting.unitCount, Allocator.Temp);
-        //ecb.Instantiate(setting.unitEntity, vehicles);
-
-        //setting.unitEntity
+        var setting = query.GetSingleton<SettingComponentData>();
+        var ray = cam.ScreenPointToRay(position);
+        if (groundPlane.Raycast(ray, out var enter))
+        {
+            var position = ray.GetPoint(enter);
+            var entity = World.DefaultGameObjectInjectionWorld.EntityManager.Instantiate(setting.targetEntity);
+            World.DefaultGameObjectInjectionWorld.EntityManager.SetComponentData(entity, new LocalTransform { Position = position, Scale = 1 });
+        }
     }
 
     public void OnTouchPosition(InputAction.CallbackContext context)
@@ -30,7 +34,7 @@ public class UnitSpawner : MonoBehaviour, Action.IMainActions
         position = context.ReadValue<Vector2>();
     }
 
-    void Start()
+    void Awake()
     {
         action = new Action();
         action.main.SetCallbacks(this);
@@ -49,6 +53,11 @@ public class UnitSpawner : MonoBehaviour, Action.IMainActions
     
     void Update()
     {
-        
+        if (isClicked)
+        {
+            isClicked = false;
+           
+
+        }
     }
 }
